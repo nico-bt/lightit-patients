@@ -1,11 +1,9 @@
 # Patient Registration
 
-🔗 [Challenge instructions](https://lightit.slite.page/p/lzAFJyBVgxbWAO/FullStack-Challenge-Patient-Registration)  
+🔗 [Challenge instructions](https://lightit.slite.page/p/lzAFJyBVgxbWAO/FullStack-Challenge-Patient-Registration) - Made a fullstack Next.js version of it.  
+<br/>  
 
-Made a fullstack Next.js version of it.  
-  
-
-## Live: 🔗 link here after deploy
+## Live: 🔗 https://lightit-patients.vercel.app/
 
 Application to register and manage patients.  
 You can:
