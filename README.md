@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Patient Registration
 
-## Getting Started
+🔗 [Challenge instructions](https://lightit.slite.page/p/lzAFJyBVgxbWAO/FullStack-Challenge-Patient-Registration)  
 
-First, run the development server:
+Made a fullstack Next.js version of it.  
+  
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Live: 🔗 link here after deploy
+
+Application to register and manage patients.  
+You can:
+- Add/delete patients.
+- Upload images
+- Search patients by name
+
+Techs used:
+- Nextjs
+- Typescript
+- Tailwind
+- Client side validation: React Hook Form + Zod
+- Server side validation: Zod
+- Database: Prisma ORM (Postgres) + Supabase
+- Images: bucket in Supabase Storage
+
+
+## Comments
+- Followed the "Next way" of using server actions to access the database directly from Server Components.  
+I did not create a separate API layer for client-side access.
+
+- Kept the server actions files close to where they are used. Other option could be to create a dedicated "actions/" folder.
+  
+- Used Supabase instead of a local Docker database to store patients and images in the cloud.  
+  This cloud instance can act as development/staging environment.
+  
+- The patient schema and crud operations are defined with Prisma ORM, stored in a Postgres db on Supabase.
+  
+- Images are uploaded to a bucket on Supabase and then, the resulting URL is saved in a "patient.photo" field.  
+
+- The phone input uses `react-international-phone` package.  
+  And also I've validated the numbers using https://github.com/google/libphonenumber  
+  May be this validation could be a litte too strict, and could be better to validate in the future sending an sms only.  
+  And just give the user more freedom for entering phone numbers with a less strict validation.
+
+
+## Entity Diagram
+<img width="665" height="379" alt="image" src="https://github.com/user-attachments/assets/37a3b0ce-6a18-4624-8b11-cef365f6c715" />
+
+
+## Next steps / improvements
+
+- Add pagination, infinite scrolling or "show more" to limit the number of items
+- Add "edit patient" feature
+- Add filters and sorting options (by email, country code, etc.)
+- Add role-based authentication (e.g. admin, staff)
+- Add caching for patient list
+- Add tests
+
+
+---
+## Notes for local setup 
+After cloning the repo, you’ll need to create a `.env` file with your database access keys.    
+If we were using a shared staging environment, this `.env` file could be provided privately via ClickUp, Slack, or another secure channel.  
+
+### Example `.env` file
+
+> ⚠️ Replace the values below with valid project credentials.
+
+```env
+# Connect to Supabase via connection pooling (used by Prisma in production)
+DATABASE_URL="YOUR_DB_URL"
+
+# Direct connection to the database (used for local migrations)
+DIRECT_URL="YOUR_URL"
+
+# Supabase project configuration for client-side access
+NEXT_PUBLIC_SUPABASE_URL=https://YOUR_PROJECT_ID.supabase.co
+
+# Public anon key for the Supabase client SDK
+NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
