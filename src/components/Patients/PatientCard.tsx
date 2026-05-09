@@ -9,6 +9,7 @@ import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import { Manrope } from "next/font/google";
 import { Patient } from "@/db/generated/prisma/client";
+import { twMerge } from "tailwind-merge";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -17,7 +18,11 @@ const manrope = Manrope({
 const colorPlaceholder =
   "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxIDEiPjxyZWN0IGZpbGw9IiM5Y2EzYWYiIHdpZHRoPSIxIiBoZWlnaHQ9IjEiLz48L3N2Zz4=";
 
-export function PatientCard({ patient }: { patient: Patient }) {
+export type PatientCardProps = React.LiHTMLAttributes<HTMLLIElement> & {
+  patient: Patient;
+};
+
+export function PatientCard({ patient, className, ...rest }: PatientCardProps) {
   const [isPending, startTransition] = useTransition();
 
   const handleDelete = async (id: number) => {
@@ -38,7 +43,7 @@ export function PatientCard({ patient }: { patient: Patient }) {
   };
 
   return (
-    <li className={`${manrope.className}`}>
+    <li className={twMerge(manrope.className, className)} {...rest}>
       <details className="group border border-slate-600 overflow-hidden elevateOnHover relative bg-slate-900 rounded-lg">
         <summary className="flex flex-col items-center gap-4 p-4 cursor-pointer list-none">
           {patient.photo ? (
